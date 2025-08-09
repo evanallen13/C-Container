@@ -8,29 +8,22 @@ int main() {
         char word[10];
     } FizzBuzzConfig;
 
-    FizzBuzzConfig FIZZ;
-    FIZZ.number = 3;
-    strcpy(FIZZ.word, "FIZZ");
+    FizzBuzzConfig fizzBuzzNumbers[] = {
+        {3, "FIZZ"},
+        {5, "BUZZ"},
+    };
 
-    FizzBuzzConfig BUZZ;
-    BUZZ.number = 5;
-    strcpy(BUZZ.word, "BUZZ");
-
-    for (int i = 1; i <= 150000; i++) {
+    for (int i = 1; i <= 15; i++) {
 
         char result[20];
         sprintf(result, "%d: ", i);
 
-        if (i % FIZZ.number == 0) {
-            sprintf(result + strlen(result), "%s", FIZZ.word);
-        }
-        if (i % BUZZ.number == 0) {
-            sprintf(result + strlen(result), "%s", BUZZ.word);
+        for (int j = 0; j < sizeof(fizzBuzzNumbers) / sizeof(FizzBuzzConfig); j++) {
+            if (i % fizzBuzzNumbers[j].number == 0) {
+                sprintf(result + strlen(result), "%s", fizzBuzzNumbers[j].word);
+            }
         }
         printf("%s\n", result);
     }
     return 0;
 }
-
-
-
