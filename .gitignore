@@ -5,6 +5,9 @@
 *.o
 *.ko
 *.obj
+*.bin
+*.com
+*.class
 *.elf
 
 # Linker output
