@@ -1,0 +1,45 @@
+name: C
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fizzbuzz:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Update apt and install C toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential \
+            gdb \
+            valgrind \
+            cmake
+
+      - name: Show tool versions
+        run: |
+          gcc --version
+          g++ --version
+          gdb --version
+          valgrind --version
+          cmake --version
+
+      - name: Compile
+        run: |
+          mkdir -p build
+          gcc -o ./build/main "main.c"
+
+      - name: Archive build output
+        run: |
+          tar -czvf build-output.tar.gz -C build main
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: c-build-${{ github.run_number }}
+          name: C Build ${{ github.run_number }}
+          files: build-output.tar.gz
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
