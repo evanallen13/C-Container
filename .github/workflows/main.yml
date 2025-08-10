@@ -28,11 +28,7 @@ jobs:
       # Optional: build & run a tiny C sample to verify everything works
       - name: Compile and run sample
         run: |
-          cat > hello.c <<'EOF'
-          #include <stdio.h>
-          int main(){ printf("hello, c toolchain!\\n"); return 0; }
-          EOF
-          gcc -O2 -g hello.c -o hello
-          ./hello
-          echo "Running under valgrind (should be clean):"
-          valgrind --leak-check=full ./hello || true
+          mkdir -p build
+          gcc -o ./build/main "main.c"
+          ./build/main
+
