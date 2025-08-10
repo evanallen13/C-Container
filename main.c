@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-int main() {
+int main(int argc, char *argv[]) {
 
     typedef struct {
         int number;
@@ -13,7 +16,10 @@ int main() {
         {5, "BUZZ"},
     };
 
-    for (int i = 1; i <= 10; i++) {
+    int n = 15;
+    if (argc > 1) n = atoi(argv[1]); // convert string to int
+
+    for (int i = 1; i <= n; i++) {
 
         char result[20];
         sprintf(result, "%d: ", i);
