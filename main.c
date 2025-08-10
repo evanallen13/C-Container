@@ -5,7 +5,7 @@ int main() {
 
     typedef struct {
         int number;
-        char word[10];
+        char word[5];
     } FizzBuzzConfig;
 
     FizzBuzzConfig fizzBuzzNumbers[] = {
@@ -13,7 +13,7 @@ int main() {
         {5, "BUZZ"},
     };
 
-    for (int i = 1; i <= 15; i++) {
+    for (int i = 1; i <= 10; i++) {
 
         char result[20];
         sprintf(result, "%d: ", i);
