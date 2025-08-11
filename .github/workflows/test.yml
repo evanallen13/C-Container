@@ -25,6 +25,8 @@ jobs:
         run: |
           # curl -L https://github.com/evanallen13/C-Container/releases/download/${{ inputs.release }}/main --output main
           gh release download ${{ inputs.release }} --repo evanallen13/C-Container
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       - name: Run
         run: |
