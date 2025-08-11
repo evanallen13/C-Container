@@ -34,9 +34,9 @@ jobs:
           mkdir -p build
           gcc -o ./main "main.c"
 
-      - name: Archive build output
-        run: |
-          tar -czvf build-output.tar.gz -C build main
+      # - name: Archive build output
+      #   run: |
+      #     tar -czvf build-output.tar.gz -C build main
       
       - name: Create Release
         env:
