@@ -19,12 +19,15 @@ jobs:
             build-essential \
             gdb \
             valgrind \
-            cmake
+            cmake \
+            gcc-arm-linux-gnueabihf
 
       - name: Compile
         run: |
           mkdir -p build
           gcc -o ./build/main "main.c"
+          arm-linux-gnueabihf-gcc -o ./build/main-arm "main.c"
+
       
       - name: Create Release
         id: create_release
@@ -34,6 +37,7 @@ jobs:
           name: Release v-${{ github.run_number }}
           files: |
             build/main
+            build/main-arm
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
