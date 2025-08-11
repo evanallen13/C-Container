@@ -7,7 +7,7 @@ permissions:
   contents: write
   
 jobs:
-  fizzbuzz:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -36,3 +36,10 @@ jobs:
             build/main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+  test:
+    needs: build
+    uses: ./.github/workflows/test.yml
+    with:
+      release: v-${{ github.run_number }}
