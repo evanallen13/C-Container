@@ -39,7 +39,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: v-${{ github.run_number }}
-          name: Release v${{ inputs.package_version }}
+          name: Release v-${{ github.run_number }}
           files: |
             build/main
         env:
