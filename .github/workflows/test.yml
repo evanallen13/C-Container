@@ -32,7 +32,7 @@ jobs:
       - name: Compile
         run: |
           mkdir -p build
-          gcc -o ./main "main.c"
+          gcc -o ./build/main "main.c"
       
       - name: Create Release
         id: create_release
@@ -41,8 +41,7 @@ jobs:
           tag_name: v-${{ github.run_number }}
           name: Release v${{ inputs.package_version }}
           files: |
-            bin/Release/net8.0/win-x64/publish/*.exe
-            bin/Release/net8.0/linux-x64/publish/*.exe
+            build/main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # - name: Archive build output
