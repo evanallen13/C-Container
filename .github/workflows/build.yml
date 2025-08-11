@@ -26,7 +26,7 @@ jobs:
         run: |
           mkdir -p build
           gcc $(find . -name "*.c") -o build/main
-          arm-$(find . -name "*.c") -o ./build/main-arm "main.c"
+          # arm-$(find . -name "*.c") -o ./build/main-arm "main.c"
       
       - name: Create Release
         id: create_release
