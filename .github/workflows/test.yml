@@ -33,17 +33,28 @@ jobs:
         run: |
           mkdir -p build
           gcc -o ./main "main.c"
-
+      
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v-${{ github.run_number }}
+          name: Release v${{ inputs.package_version }}
+          files: |
+            bin/Release/net8.0/win-x64/publish/*.exe
+            bin/Release/net8.0/linux-x64/publish/*.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # - name: Archive build output
       #   run: |
       #     tar -czvf build-output.tar.gz -C build main
       
-      - name: Create Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
-          TAG: ${{ github.ref_name }} 
-        run: |
-          gh release create "$TAG" \
-            --repo="${{ github.repository }}" \
-            --title="${{ github.repository_owner }}/${{ github.event.repository.name }} $TAG" \
-            --generate-notes # Automatically generates release notes based on commits since the last release
+      # - name: Create Release
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+      #     TAG: ${{ github.ref_name }} 
+      #   run: |
+      #     gh release create "$TAG" \
+      #       --repo="${{ github.repository }}" \
+      #       --title="${{ github.repository_owner }}/${{ github.event.repository.name }} $TAG" \
+      #       --generate-notes # Automatically generates release notes based on commits since the last release
