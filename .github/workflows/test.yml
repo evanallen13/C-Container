@@ -34,12 +34,13 @@ jobs:
       - name: Archive build output
         run: |
           tar -czvf build-output.tar.gz -C build main
-
+      
       - name: Create Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: c-build-${{ github.run_number }}
-          name: C Build ${{ github.run_number }}
-          files: build-output.tar.gz
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          TAG: ${{ github.ref_name }} 
+        run: |
+          gh release create "$TAG" \
+            --repo="${{ github.repository }}" \
+            --title="${{ github.repository_owner }}/${{ github.event.repository.name }} $TAG" \
+            --generate-notes # Automatically generates release notes based on commits since the last release
