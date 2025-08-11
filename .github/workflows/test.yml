@@ -8,8 +8,6 @@ on:
         required: true
         default: 'latest'
 
-permissions:
-  contents: write
   
 jobs:
   fizzbuzz:
@@ -20,5 +18,6 @@ jobs:
 
       - name: Run
         run: |
+          ls
           chmod +x main
           ./main
