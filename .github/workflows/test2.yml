@@ -14,4 +14,6 @@ jobs:
         run: curl -L https://github.com/evanallen13/C-Container/releases/download/v-7/main --output main
 
       - name: Run
-        run: ./main
+        run: |
+          chmod +x main
+          ./main
