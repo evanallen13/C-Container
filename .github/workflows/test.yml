@@ -1,59 +1,35 @@
-name: test
+name: Test
 
 on:
   workflow_dispatch:
-  
-permissions:
-  contents: write
+    inputs: 
+      release:
+        description: 'Release version to test'
+        required: true
+        default: 'latest'
+
+  workflow_call:
+    inputs: 
+      release:
+        description: 'Release version to test'
+        required: true
+        default: 'latest'
+        type: string
+
   
 jobs:
-  fizzbuzz:
+  run-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      
-      - name: Update apt and install C toolchain
+      - name: Pull
         run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            build-essential \
-            gdb \
-            valgrind \
-            cmake
-
-      - name: Show tool versions
-        run: |
-          gcc --version
-          g++ --version
-          gdb --version
-          valgrind --version
-          cmake --version
-
-      - name: Compile
-        run: |
-          mkdir -p build
-          gcc -o ./build/main "main.c"
-      
-      - name: Create Release
-        id: create_release
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: v-${{ github.run_number }}
-          name: Release v-${{ github.run_number }}
-          files: |
-            build/main
+          # curl -L https://github.com/evanallen13/C-Container/releases/download/${{ inputs.release }}/main --output main
+          gh release download ${{ inputs.release }} --repo evanallen13/C-Container
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # - name: Archive build output
-      #   run: |
-      #     tar -czvf build-output.tar.gz -C build main
-      
-      # - name: Create Release
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
-      #     TAG: ${{ github.ref_name }} 
-      #   run: |
-      #     gh release create "$TAG" \
-      #       --repo="${{ github.repository }}" \
-      #       --title="${{ github.repository_owner }}/${{ github.event.repository.name }} $TAG" \
-      #       --generate-notes # Automatically generates release notes based on commits since the last release
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Run
+        run: |
+          ls
+          chmod +x main
+          ./main
