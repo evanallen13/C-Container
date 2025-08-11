@@ -13,5 +13,5 @@ jobs:
       - name: Run
         run: |
           ls
-          # chmod +x main
-          # ./main
+          chmod +x main
+          ./main
