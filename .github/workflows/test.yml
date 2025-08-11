@@ -1,4 +1,4 @@
-name: test
+name: test2
 
 on:
   workflow_dispatch:
@@ -10,50 +10,10 @@ jobs:
   fizzbuzz:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      
-      - name: Update apt and install C toolchain
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            build-essential \
-            gdb \
-            valgrind \
-            cmake
+      - name: Pull
+        run: curl -L https://github.com/evanallen13/C-Container/releases/download/latest/main --output main
 
-      - name: Show tool versions
+      - name: Run
         run: |
-          gcc --version
-          g++ --version
-          gdb --version
-          valgrind --version
-          cmake --version
-
-      - name: Compile
-        run: |
-          mkdir -p build
-          gcc -o ./build/main "main.c"
-      
-      - name: Create Release
-        id: create_release
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: v-${{ github.run_number }}
-          name: Release v-${{ github.run_number }}
-          files: |
-            build/main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # - name: Archive build output
-      #   run: |
-      #     tar -czvf build-output.tar.gz -C build main
-      
-      # - name: Create Release
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
-      #     TAG: ${{ github.ref_name }} 
-      #   run: |
-      #     gh release create "$TAG" \
-      #       --repo="${{ github.repository }}" \
-      #       --title="${{ github.repository_owner }}/${{ github.event.repository.name }} $TAG" \
-      #       --generate-notes # Automatically generates release notes based on commits since the last release
+          chmod +x main
+          ./main
