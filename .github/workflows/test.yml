@@ -32,7 +32,7 @@ jobs:
       - name: Compile
         run: |
           mkdir -p build
-          gcc -o ./build/main "main.c"
+          gcc -o ./main "main.c"
 
       - name: Archive build output
         run: |
