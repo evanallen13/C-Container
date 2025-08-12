@@ -14,24 +14,22 @@ struct LinkedList* createLinkedList(int data) {
     return list;
 }
 
-struct LinkedList* createLinkedList(int *data_array) {
+struct LinkedList* arrayToLinkedList(int *dataArray, int length) {
+    if (length <= 0) return NULL;
 
-    struct LinkedList* head = createLinkedList(9);
-    // if (head == NULL) {
-    //     return NULL;
-    // }
+    struct LinkedList* head = createLinkedList(dataArray[0]);
+    if (head == NULL) return NULL;
 
-    // struct LinkedList* current = head;
-    // for (size_t i = 1; i < sizeof(data_array)/sizeof(data_array[0]); i++) {
-    //     current->next = createLinkedList(data_array[i]);
-    //     if (current->next == NULL) {
-    //         freeLinkedList(head); 
-    //         return NULL;
-    //     }
-    //     current = current->next;
-    // }
+    struct LinkedList* current = head;
+    for (int i = 1; i < length; i++) {
+        current->next = createLinkedList(dataArray[i]);
+        if (current->next == NULL) {
+            freeLinkedList(head);
+            return NULL;
+        }
+        current = current->next;
+    }
     return head;
-
 }
 
 void freeLinkedList(struct LinkedList* head) {
