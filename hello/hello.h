@@ -6,5 +6,6 @@ typedef struct {
 } HelloConfig;
 
 void hello();
+void reverse(char* str);
 
 #endif
