@@ -9,6 +9,7 @@ struct LinkedList {
 
 // Function declarations (prototypes)
 struct LinkedList* createLinkedList(int data);
+struct LinkedList* createLinkedList(int *dataArray);
 void freeLinkedList(struct LinkedList* head);
 
 #endif
