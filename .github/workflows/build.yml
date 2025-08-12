@@ -24,6 +24,7 @@ jobs:
             gcc-arm-linux-gnueabihf
       - name: Compile
         run: |
+          cd fizzbuzz
           mkdir -p build
           gcc $(find . -name "*.c") -o build/main
           # arm-$(find . -name "*.c") -o ./build/main-arm "main.c"
