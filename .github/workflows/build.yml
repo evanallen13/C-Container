@@ -21,7 +21,9 @@ jobs:
             gdb \
             valgrind \
             cmake \
-            gcc-arm-linux-gnueabihf
+            libcjson-dev \
+            && apt-get clean && rm -rf /var/lib/apt/lists/*
+            
       - name: Compile
         run: |
           cd fizzbuzz
