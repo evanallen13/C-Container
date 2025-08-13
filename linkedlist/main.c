@@ -2,10 +2,14 @@
 #include "linkedlist.h"
 
 int main(void) {
-    int arr[] = {1, 2, 3, 4, 5};
-    struct LinkedList* list = arrayToLinkedList(arr, 5);
+    int n = 15;
+    int arr[n]; 
+    for (int i = 0; i < n; i++) {
+        arr[i] = i + 1;
+    }
 
-    // Print linked list
+    struct LinkedList* list = arrayToLinkedList(arr, sizeof(arr) / sizeof(arr[0]));
+
     struct LinkedList* current = list;
     while (current != NULL) {
         printf("%d -> ", current->data);

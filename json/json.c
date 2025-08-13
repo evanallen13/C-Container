@@ -1,45 +1,33 @@
 // file: loop_json_array.c
 #include <stdio.h>
 #include <stdlib.h>
-// #include "cJSON.h"
+#include <cjson/cJSON.h>
 
-void main(){
-    printf("Hello World! \n");
+// file: loop_json_array.c
+#include <stdio.h>
+#include <stdlib.h>
+#include <cjson/cJSON.h>
+
+int main(void) {
+    // create a cJSON object
+    cJSON *json = cJSON_CreateObject();
+    if (!json) {
+        fprintf(stderr, "Failed to create cJSON object\n");
+        return 1;
+    }
+
+    // add a key/value pair
+    cJSON_AddStringToObject(json, "message", "Hello, world!");
+
+    // print JSON string
+    char *json_str = cJSON_Print(json);
+    if (json_str) {
+        printf("%s\n", json_str);
+        free(json_str);
+    }
+
+    // clean up
+    cJSON_Delete(json);
+
+    return 0;
 }
-// #include "cJSON.h"
-
-// int main(void) {
-//     const char *json_str =
-//         "[{\"name\": \"Alice\", \"age\": 30},"
-//         " {\"name\": \"Bob\", \"age\": 25},"
-//         " {\"name\": \"Charlie\", \"age\": 35}]";
-
-//     // Parse the JSON string
-//     cJSON *root = cJSON_Parse(json_str);
-//     if (root == NULL) {
-//         printf("Error parsing JSON\n");
-//         return 1;
-//     }
-
-//     if (!cJSON_IsArray(root)) {
-//         printf("JSON is not an array\n");
-//         cJSON_Delete(root);
-//         return 1;
-//     }
-
-//     int arr_size = cJSON_GetArraySize(root);
-//     for (int i = 0; i < arr_size; i++) {
-//         cJSON *item = cJSON_GetArrayItem(root, i);
-//         if (cJSON_IsObject(item)) {
-//             cJSON *name = cJSON_GetObjectItem(item, "name");
-//             cJSON *age = cJSON_GetObjectItem(item, "age");
-
-//             if (cJSON_IsString(name) && cJSON_IsNumber(age)) {
-//                 printf("Name: %s, Age: %d\n", name->valuestring, age->valueint);
-//             }
-//         }
-//     }
-
-//     cJSON_Delete(root);
-//     return 0;
-// }
