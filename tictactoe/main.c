@@ -50,6 +50,7 @@ int main(void) {
         int* turn_result[2] = turn(arr, player);
         // arr[turn_result[0]][turn_result[1]] = (player == 1) ? 'X' : 'O';
         int* turn_result_ptr = turn(arr, player);
+
         printf("Row: %d, Col: %d\n", turn_result_ptr[0], turn_result_ptr[1]);
         int check = check_winner(arr);
         if (check == 1) {
