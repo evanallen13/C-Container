@@ -1,33 +1,22 @@
-// file: loop_json_array.c
 #include <stdio.h>
 #include <stdlib.h>
-#include <cjson/cJSON.h>
 
-// file: loop_json_array.c
-#include <stdio.h>
-#include <stdlib.h>
-#include <cjson/cJSON.h>
+int* return_int_array() {
+    static int arr[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    return arr;
+}
 
 int main(void) {
-    // create a cJSON object
-    cJSON *json = cJSON_CreateObject();
-    if (!json) {
-        fprintf(stderr, "Failed to create cJSON object\n");
-        return 1;
-    }
+    printf("JSON module initialized.\n");
 
-    // add a key/value pair
-    cJSON_AddStringToObject(json, "message", "Hello, world!");
+    int size = 10;
+    int* myArray = return_int_array(size);
 
-    // print JSON string
-    char *json_str = cJSON_Print(json);
-    if (json_str) {
-        printf("%s\n", json_str);
-        free(json_str);
-    }
+    // for (int i = 0; i < size; i++) {
+    //     printf("%d ", myArray[i]);
+    // }
+    // printf("\n");
 
-    // clean up
-    cJSON_Delete(json);
-
+    // free(myArray);
     return 0;
 }
