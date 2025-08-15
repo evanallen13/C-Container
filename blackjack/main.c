@@ -11,7 +11,7 @@ typedef struct {
 void create_deck(Card deck[]) {
     char suits[4][10] = {"❤️", "♦️", "♣️", "♠️"};
     char ranks[13][10] = {"2", "3", "4", "5", "6", "7", "8", "9", "10",
-                          "Jack", "Queen", "King", "Ace"};
+                          "J", "Q", "K", "A"};
 
     int n = 0;
     for (int i = 0; i < 4; i++) {
@@ -38,36 +38,60 @@ void print_card(Card card) {
     printf("%s of %s (value: %d)\n", card.rank, card.suit, card.value);
 }
 
-void print_hand(Card *card) {
+int print_hand(Card *card) {
+    int total_value = 0;
     for (int i = 0; i < 10; i++) {
         if (card[i].value == 0 || card[i].value > 11) break; // Stop if we reach an empty card
-        printf("%s of %s (value: %d)\n", card[i].rank, card[i].suit, card[i].value);
+        printf("%s of %s\n", card[i].rank, card[i].suit);
+        total_value += card[i].value;
     }
+    printf("Total: %d\n", total_value);
+    return total_value;
 }
 
 void play_blackjack(Card deck[]) {
-    printf("Playing Blackjack...\n");
-
     Card player_hand[10];
     Card dealer_hand[10];
+    int player_total = 0, dealer_total = 0;
 
     player_hand[0] = deck[0];
     player_hand[1] = deck[1];
     dealer_hand[0] = deck[2];
     dealer_hand[1] = deck[3];
 
-    print_hand(player_hand);
-    // printf("%ld \n",sizeof(player_hand)/sizeof(player_hand[0]));
-    // print_hand(player_hand, sizeof(player_hand) / sizeof(player_hand[0]));
+    char player_move;
+    int i = 2;
+    while (player_move != 's') {
+        system("clear");
+        printf("Player's hand:\n");
+        player_total = print_hand(player_hand);
+        printf("\nDealer's hand:\n");
+        dealer_total = print_hand(dealer_hand);
 
+        printf("Make your move (h for hit, s for stand): ");
+        scanf(" %c", &player_move);
+        if (player_move == 'h') {
+            player_hand[i] = deck[3 + i];
+            i++;
+        }
+    }
 
-    // printf("Player's hand:\n");
-    // print_card(player_hand[0]);
+    // while (dealer_total < 17) {
+    //     // system("clear");
+    //     printf("Player's hand:\n");
+    //     player_total = print_hand(player_hand);
+    //     printf("\nDealer's hand:\n");
+    //     dealer_total = print_hand(dealer_hand);
 
-    // print_card(player_hand[1]);
-    // printf("Dealer's hand:\n");
-    // print_card(dealer_hand[0]);
-    // printf("Hidden card\n");
+    //     dealer_hand[i - 1] = deck[3 + i];
+    //     i++;
+    // }
+
+    // // system("clear");
+    // printf("Final Player's hand:\n");
+    // player_total = print_hand(player_hand);
+    // printf("\nFinal Dealer's hand:\n");
+    // dealer_total = print_hand(dealer_hand);
 }
 
 void main() {
@@ -75,9 +99,4 @@ void main() {
     create_deck(deck);
     shuffle_deck(deck);
     play_blackjack(deck);
-
-    // for (int i = 0; i < 10; i++) {
-    //     print_card(deck[i]);
-    // }
-
 }
