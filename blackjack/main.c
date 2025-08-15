@@ -27,9 +27,21 @@ void create_deck(Card deck[]) {
     }
 }
 
+void shuffle_deck(Card deck[]) {
+    for (int i = 0; i < 52; i++) {
+        int j = rand() % 52;
+        Card temp = deck[i];
+        deck[i] = deck[j];
+        deck[j] = temp;
+    }
+}
+
 int main() {
     Card deck[52];
     create_deck(deck);
+    shuffle_deck(deck);
+    shuffle_deck(deck);
+
 
     for (int i = 0; i < 52; i++) {
         print_card(deck[i]);
