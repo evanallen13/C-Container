@@ -75,6 +75,11 @@ void main() {
         int* players_turn = turn(arr, player);
         int x = players_turn[0];
         int y = players_turn[1];
+        if (arr[x][y] == 'X' || arr[x][y] == 'O') {
+            printf("Invalid move, try again.\n");
+            i--; // Do not count this turn
+            continue;
+        }
         arr[x][y] = (player == 1) ? 'X' : 'O';
 
         print_board(arr);
