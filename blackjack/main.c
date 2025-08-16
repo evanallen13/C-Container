@@ -10,8 +10,10 @@ typedef struct {
 
 void create_deck(Card deck[]) {
     char suits[4][10] = {"❤️", "♦️", "♣️", "♠️"};
-    char ranks[13][10] = {"2", "3", "4", "5", "6", "7", "8", "9", "10",
-                          "J", "Q", "K", "A"};
+    char ranks[13][10] = {
+        "2", "3", "4", "5", 
+        "6", "7", "8", "9", 
+        "10", "J", "Q", "K", "A"};
 
     int n = 0;
     for (int i = 0; i < 4; i++) {
@@ -47,6 +49,18 @@ int print_hand(Card *card) {
     }
     printf("Total: %d\n", total_value);
     return total_value;
+}
+
+void check_winner(int player_total, int dealer_total) {
+    if (player_total > 21) {
+        printf("Player busts! Dealer wins.\n");
+    } else if (dealer_total > 21 || player_total > dealer_total) {
+        printf("Player wins!\n");
+    } else if (player_total < dealer_total) {
+        printf("Dealer wins!\n");
+    } else {
+        printf("It's a tie!\n");
+    }
 }
 
 void play_blackjack(Card deck[]) {
@@ -87,11 +101,12 @@ void play_blackjack(Card deck[]) {
     //     i++;
     // }
 
-    // // system("clear");
-    // printf("Final Player's hand:\n");
-    // player_total = print_hand(player_hand);
-    // printf("\nFinal Dealer's hand:\n");
-    // dealer_total = print_hand(dealer_hand);
+    system("clear");
+    printf("Final Player's hand:\n");
+    player_total = print_hand(player_hand);
+    printf("\nFinal Dealer's hand:\n");
+    dealer_total = print_hand(dealer_hand);
+    check_winner(player_total, dealer_total);
 }
 
 void main() {
